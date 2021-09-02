@@ -2,6 +2,8 @@ import time
 
 #change file handling for your files, if it differs on upload.
 
+#File Handling
+#KnownNumbers is made into a list, to avoid repeats of numbers, and to write them into the file in ascending order.
 KnownNumbersFile = open("KnownNumbers.txt","r")
 Numbers = KnownNumbersFile.readlines()
 KnownNumbers = []
@@ -10,6 +12,7 @@ for i in Numbers:
     number = int(number)
     KnownNumbers.append(number)
 
+#TuplesTested is made into a list, to avoid repeats of tuples tested, and also to make sure that computations are not wasted on already checked tuples.
 TuplesTestedFile = open("TuplesTested.txt","r")
 Tuples = TuplesTestedFile.readlines()
 TuplesTested = []
@@ -22,16 +25,16 @@ for string in Tuples:
             newlist.append(int(number))
     TuplesTested.append(newlist)
 
-GoodTuples = []
-DistinctNonTrivialTuples = []
-TrivialNumbers1 = []
-TrivialNumbers2 = []
-TrivialNumbers8 = []
-TrivialNumbers16 = []
+GoodTuples = [] #Stores all the tuples that satisfy the LCF, including bitwise rotations.
+DistinctNonTrivialTuples = [] #Stores all the non-trivial tuples, and the numbers that have g applied to them in the represented cycle, in a list, not including bitwise rotations.
+TrivialNumbers1 = [] #Stores all the trivial tuples that have 1 as their main vertex.
+TrivialNumbers2 = [] #Stores all the trivial tuples that have 2 as their main vertex.
+TrivialNumbers8 = [] #Stores all the trivial tuples that have 8 as their main vertex.
+TrivialNumbers16 = [] #Stores all the trivial tuples that have 16 as their main vertex.
 
 #NonTrivial Finder
 
-def TupleTester(TupleToTest):
+def TupleTester(TupleToTest): #Takes in a tuple that needs to be tested, and checks it using the LCF.
     n = len(TupleToTest)
     numerator = 0
     for i in range(1,n+1):
@@ -51,19 +54,19 @@ def TupleTester(TupleToTest):
     number = numerator/denominator
     return number
 
-def bitwise(lst):
+def bitwise(lst): #Performs a bitwise rotation on the tuple.
     lst = list(lst)
     lst.append(lst[0])
     lst.pop(0)
     return lst
 
-def reflect(tupl):
+def reflect(tupl): #Reflects the tuple.
   newtupl = []
   for i in range(len(tupl)-1,-1,-1):
     newtupl.append(tupl[i])
   return(newtupl)
 
-def Rotate_Tuple_Family(tupl):
+def Rotate_Tuple_Family(tupl): #Creates the family of bitwise rotations of a tuple.
     tupl = list(tupl)
     Family = []
     for i in range(0,len(tupl)):
@@ -71,8 +74,8 @@ def Rotate_Tuple_Family(tupl):
         tupl = bitwise(tupl)
     return Family
 
-def Finder(tupl):
-    Family = Rotate_Tuple_Family(tupl)
+def Finder(tupl): #This checks the tuple to see if it has been tested or not. If not, it will go through and see if the output is a positive integer.
+    Family = Rotate_Tuple_Family(tupl) #If so, the family of bitwise rotations are placed in the NonTrivial tuples list.
     gothrough = 0
     if tupl not in TuplesTested:
         gothrough = 1
@@ -96,7 +99,7 @@ def Finder(tupl):
                     GoodTuples.append(i)
     return x, Family
 
-def SPEED():
+def SPEED(): #Given an amount of time to search, it will test through the tuples generated, using our exhaustive algorithm, which is explained in the paper.
     elapsed = False
     now = time.time()
     timer = int(input("After how long would you like to stop?\n"))
@@ -131,7 +134,7 @@ def SPEED():
 
 #TrivialFinder
 
-def Collatz(n, i, seednum):
+def Collatz(n, i, seednum): #This takes in a 1,2,8, or 16 as the seednum, performs g however many number of times, and then performs the normal collatz function until it reaches the seednum again.
     powers = []
     for x in range(i - 1):
         powers.append(0)
@@ -152,8 +155,7 @@ def Collatz(n, i, seednum):
     powers.append(power_of_two)
     return powers
 
-#This should find loops, and store new results into their trivial.txt files, KnownNumbers, and TupleTests.
-def TrivialLoopFinder(seednum, beginnum, endnum):
+def TrivialLoopFinder(seednum, beginnum, endnum): #This finds tuples, and stores new results into their trivial.txt files, KnownNumbers, and TupleTests.
     a = seednum
     mem = str(a)
     for k in range(1,beginnum):
@@ -178,7 +180,7 @@ def TrivialLoopFinder(seednum, beginnum, endnum):
         if (string not in TrivialNumbers16) and (seednum == 16):
             TrivialNumbers16.append(string)
 
-def Trivial():
+def Trivial(): #A menu for selecting a seednumber/beginning number for trivial tuples.
     while True:
         seednum = int(input("Please choose 1,2,8 or 16. Else, select another number\n"))
         if (seednum == 1) or (seednum == 2) or (seednum == 8) or (seednum == 16):
@@ -195,7 +197,7 @@ def Trivial():
         else:
           break
 
-def Delete():
+def Delete(): #Deletes all the files, if need be.
     with open('1Trivial.txt', 'w') as f:
         f.write("")
     with open('2Trivial.txt', 'w') as f:
@@ -214,8 +216,10 @@ def Delete():
     with open('NonTrivialTuples.txt', 'w') as f:
         f.write("")
 
-
-def Menu():
+#when getting the experimental data for section 3.1, we began with finding trivial tuples first, before finding non-trivial tuples.
+#It may be required to change the program, if the experiment is to be done in a different order.
+        
+def Menu(): #A menu for non-trivial finder, trivial finder, and deleting all files.
     while True:
         option = int(input("Please choose 0 for NonTrivial Finder, 1 for Trivial Finder, or 2 for File Delete: "))
         if option == 0:
