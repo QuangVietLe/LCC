@@ -13,3 +13,5 @@ TuplesToSize9 File contains all the tuples found by the exhaustive algorithm, in
 
 Collatz_Tester File includes the code we used to find trivial and non-trivial tuples.
 Exhaustive_Algorithm File includes the exhaustive algorithm that we used to systematically find satisfying tuples.
+
+NOTE: Although the file GoodTuples has repeats and TuplesTested may also have repeats, this does not affect any of the data that we presented in the paper.
