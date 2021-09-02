@@ -12,4 +12,4 @@ NOTE: Only the previous files are used in Section 3.1 of our paper. Only the fol
 TuplesToSize9 File contains all the tuples found by the exhaustive algorithm, including any trivial tuples found.
 
 Collatz_Tester File includes the code we used to find trivial and non-trivial tuples.
-The_Exhaustive_Algorithm File includes the exhaustive algorithm that we used to systematically find satisfying tuples.
+Exhaustive_Algorithm File includes the exhaustive algorithm that we used to systematically find satisfying tuples.
