@@ -1,4 +1,7 @@
 import time
+
+#change file handling for your files, if it differs on upload.
+
 KnownNumbersFile = open("KnownNumbers.txt","r")
 Numbers = KnownNumbersFile.readlines()
 KnownNumbers = []
@@ -226,9 +229,7 @@ def Menu():
           
 Menu()
 
-
-
-
+#change file handling for your files, if it differs on upload.
 
 with open('Results/1Trivial.txt', 'a') as f:
     for item in TrivialNumbers1:
