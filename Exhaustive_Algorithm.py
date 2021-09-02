@@ -39,4 +39,6 @@ while True:
             else:
                 index = -1
 
-#NOTE: all tuples found are not reflected, like in the Collatz_Tester File. Please do this manually, if you wish to find satisfying tuples. This also does not have file handling nor a programmed timer, so please do this manually, if you wish to do so.
+'''NOTE: all tuples found are not reflected, like in the Collatz_Tester File. 
+Please do this manually, if you wish to find satisfying tuples. 
+This also does not have file handling nor a programmed timer, so please do this manually, if you wish to do so.'''
